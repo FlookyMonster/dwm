@@ -49,6 +49,9 @@ static const Layout layouts[] = {
 	{ "[M]",      monocle },
 };
 
+/* MPD */
+static const char *periwinklemenu[] = { "periwinkle", "menu", NULL };
+
 /* Backlight */
 static const char *brupcmd[] = { "volume_brightness", "brightness_up", NULL };
 static const char *brdowncmd[] = { "volume_brightness", "brightness_down", NULL };
@@ -84,6 +87,7 @@ static Key keys[] = {
 	{ 0, XF86XK_MonBrightnessUp, spawn, {.v = brupcmd} },
 	{ 0, XF86XK_MonBrightnessDown, spawn, {.v = brdowncmd} },
 	{ 0, XK_Print, spawn, {.v = printscreen} },
+	{ MODKEY,			XK_e,	spawn,	{.v = periwinklemenu } },
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
