@@ -13,10 +13,9 @@ Installation
 Edit config.mk to match your local setup (dwm is installed into
 the /usr/local namespace by default).
 
-Afterwards enter the following command to build and install dwm (if
-necessary as root):
+Afterwards enter the following command to build and install dwm:
 
-    make clean install
+    ./run-this-to-install.sh
 
 
 Running dwm
