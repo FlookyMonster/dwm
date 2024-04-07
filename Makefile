@@ -44,6 +44,7 @@ install: all
 	cp shutdown-dmenu /usr/bin/shutdown-dmenu
 	cp start-dwm /usr/bin/start-dwm
 	cp dwm.desktop /usr/share/xsessions
+	cp dwm-fallback.desktop /usr/share/xsessions
 	chmod 755 ${DESTDIR}${PREFIX}/bin/dwm
 	mkdir -p ${DESTDIR}${MANPREFIX}/man1
 	sed "s/VERSION/${VERSION}/g" < dwm.1 > ${DESTDIR}${MANPREFIX}/man1/dwm.1
