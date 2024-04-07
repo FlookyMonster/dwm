@@ -8,7 +8,7 @@
 # DMENUCOL_FG = col_gray3
 # DMENUCOL_SELECTBG = col_gray4
 # DMENUCOL_SELECTFG = col_cyan
-DMENU_FONT=Terminus:size=10
+DMENU_FONT="Microsoft Sans Serif":size=8
 DMENUCOL_BG=#2A2A2A
 DMENUCOL_FG=#ECECEC	
 DMENUCOL_SELECTBG=#000000
@@ -18,7 +18,7 @@ dmenuthing() {
 dmenu -i -p "$DMENU_TITLE" -fn "$DMENU_FONT" -nb "$DMENUCOL_BG" -nf "$DMENUCOL_FG" -sb "$DMENUCOL_SELECTBG" -sf "$DMENUCOL_SELECTFG"
 }
 
-function notifselect() { 
+function selectAction() { 
 # Execute the desired action
 case $1 in
     "⏻ Turn Off" | "⏻ Shutdown" | "Shutdown" | "shutdown" | "poweroff" | "Poweroff" | "Turn off" | "Turn Off" | "turn off")
@@ -26,7 +26,8 @@ case $1 in
 " Restart" | " Reboot" | "Restart" | "restart" | "Reboot" | "reboot")
 	systemctl reboot;;
 "󰌆 Log Off" | "󰌆 LogOff" | "󰌆 Logoff" | "Logoff" | "logoff" | "Log Off" | "log off")
-	pkill -15 X ;;
+	pkill -15 dwm
+	pkill -15 X;;
 *) prompt=$(echo -n);;
 esac
 }
@@ -37,4 +38,4 @@ option=("󰌆 Log Off" "⏻ Turn Off" " Restart")
 DMENU_TITLE="Press ESC to cancel"
 prompt="$(printf '%s\n' "${option[@]}" | dmenuthing)"
 wait
-notifselect "$prompt"
+selectAction "$prompt"
