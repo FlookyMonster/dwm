@@ -43,6 +43,8 @@ install: all
 	chmod +x start-dwm
 	cp shutdown-dmenu /usr/bin/shutdown-dmenu
 	cp start-dwm /usr/bin/start-dwm
+	cp volume_brightness /usr/bin/volume_brightness
+	cp screenshotthing /usr/bin/screenshotthing
 	cp dwm.desktop /usr/share/xsessions
 	cp dwm-fallback.desktop /usr/share/xsessions
 	chmod 755 ${DESTDIR}${PREFIX}/bin/dwm
