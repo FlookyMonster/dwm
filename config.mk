@@ -14,12 +14,12 @@ PREFIX = /usr/local
 MANPREFIX = ${PREFIX}/share/man
 
 # Linux
-X11INC = /usr/X11R6/include
-X11LIB = /usr/X11R6/lib
+#x11INC = /usr/X11R6/include
+#x11LIB = /usr/X11R6/lib
 
 # FreeBSD
-#X11INC = /usr/local/include
-#X11LIB = /usr/local/lib
+X11INC = /usr/local/include
+X11LIB = /usr/local/lib
 
 # Xinerama, comment if you don't want it
 XINERAMALIBS  = -lXinerama
@@ -27,17 +27,17 @@ XINERAMAFLAGS = -DXINERAMA
 
 # freetype
 FREETYPELIBS = -lfontconfig -lXft
-FREETYPEINC = /usr/include/freetype2
+#FREETYPEINC = /usr/include/freetype2
 
 # OpenBSD and FreeBSD (uncomment)
-#FREETYPEINC = /usr/local/include/freetype2
+FREETYPEINC = /usr/local/include/freetype2
 
 # OpenBSD and FreeBSD (alternative as it was on the OG dwm make)
 #FREETYPEINC = ${X11INC}/freetype2
 
 # includes and libs
-INCS = -I${X11INC} -I${FREETYPEINC}
-LIBS = -L${X11LIB} -lX11 ${XINERAMALIBS} ${FREETYPELIBS}
+INCS = -I${X11INC} -I${FREETYPEINC} 
+LIBS = -L${X11LIB} -lX11 ${XINERAMALIBS} ${FREETYPELIBS} -lXrender
 
 # flags
 CPPFLAGS = -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_POSIX_C_SOURCE=2 -DVERSION=\"${VERSION}\" ${XINERAMAFLAGS}
