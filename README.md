@@ -5,7 +5,7 @@ This is my own fork of the window manager.
 
 Requirements
 ------------
-In order to build dwm you need the Xlib header files.
+In order to build dwm you need the Xlib header files and Xrender libraries.
 
 
 Installation
