@@ -39,12 +39,8 @@ dist: clean
 install: all
 	mkdir -p ${DESTDIR}${PREFIX}/bin
 	cp -f dwm ${DESTDIR}${PREFIX}/bin
-	chmod +x shutdown-dmenu
-	chmod +x start-dwm
-	cp shutdown-dmenu /usr/bin/shutdown-dmenu
-	cp start-dwm /usr/bin/start-dwm
-	cp volume_brightness /usr/bin/volume_brightness
-	cp screenshotthing /usr/bin/screenshotthing
+	chmod +x fluffeon-dwm-tools
+	cp fluffeon-dwm-tools /usr/bin/fluffeon-dwm-tools
 	cp dwm.desktop /usr/share/xsessions
 	chmod 755 ${DESTDIR}${PREFIX}/bin/dwm
 	mkdir -p ${DESTDIR}${MANPREFIX}/man1
@@ -54,5 +50,7 @@ install: all
 uninstall:
 	rm -f ${DESTDIR}${PREFIX}/bin/dwm\
 		${DESTDIR}${MANPREFIX}/man1/dwm.1
+	rm /usr/bin/fluffeon-dwm-tools
+	rm /usr/share/xsessions.dwm
 
 .PHONY: all options clean dist install uninstall

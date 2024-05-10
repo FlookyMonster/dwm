@@ -6,16 +6,16 @@ VERSION = 6.2-fluff
 # paths
 
 # Linux
-PREFIX = /usr/local
+#PREFIX = /usr/local
 
 # FreeBSD
-# PREFIX = /usr/local/include
+ PREFIX = /usr/local/include
 
 MANPREFIX = ${PREFIX}/share/man
 
 # Linux
-#x11INC = /usr/X11R6/include
-#x11LIB = /usr/X11R6/lib
+#X11INC = /usr/X11R6/include
+#X11LIB = /usr/X11R6/lib
 
 # FreeBSD
 X11INC = /usr/local/include

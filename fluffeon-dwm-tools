@@ -1,0 +1,145 @@
+#!/bin/sh
+
+# DMENU COLORS
+#
+# In dwm, usually the following equivalents for dmenu coloring are:
+# DMENU_FONT = dmenufont
+# DMENUCOL_BG = col_gray1
+# DMENUCOL_FG = col_gray3
+# DMENUCOL_SELECTBG = col_gray4
+# DMENUCOL_SELECTFG = col_cyan
+DMENU_FONT="Terminus":size=10
+DMENUCOL_BG=#5B544C
+DMENUCOL_FG=#E4E3E0	
+DMENUCOL_SELECTBG=#DA2A47
+DMENUCOL_SELECTFG=$DMENUCOL_FG
+
+# VOLUME AND BRIGHTNESS CONTROLS
+bar_color="#b3cfa7"
+volume_step=2
+brightness_step=5
+max_volume=100
+sound_system="pulse"
+
+# Uses regex to get volume from pactl
+get_volume() {
+	pactl get-sink-volume @DEFAULT_SINK@ | grep -Eo '[0-9]{1,3}%' | head -1 | sed 's/.$//'
+}
+
+# Uses regex to get mute status from pactl
+get_mute() {
+	pactl get-sink-mute @DEFAULT_SINK@ | grep -Eo '(yes|no)'
+}
+
+# Uses regex to get brightness from xbacklight
+get_brightness() {
+	xbacklight | grep -Eo '[0-9]{1,3}%' | head 1
+}
+
+# Returns a mute icon, a volume-low icon, or a volume-high icon, depending on the volume
+get_volume_icon() {
+	volume=$(get_volume)
+	mute=$(get_mute)
+	if [ "$volume" -eq 0 ] || [ "$mute" == "yes" ] ; then
+		volume_icon=""
+	elif [ "$volume" -lt 50 ]; then
+		volume_icon=""
+	else
+		volume_icon=""
+	fi
+}
+
+# Displays a volume notification using dunstify
+show_volume_notif() {
+	volume=$(get_mute)
+	get_volume_icon
+	dunstify -i audio-volume-muted-blocking -t 1000 -r 2593 -u normal "$volume_icon $volume%" -h int:value:$volume -h string:hlcolor:"$bar_color"
+}
+
+# Displays a brightness notification using dunstify
+show_brightness_notif() {
+	brightness=$(get_brightness)
+	brightness_icon=""
+	dunstify -t 1000 -r 2593 -u normal "$brightness_icon $brightness%" -h int:value:$brightness -h string:hlcolor:$bar_color
+}
+
+dmenu_spawn() {
+dmenu -i -p "$DMENU_TITLE" -fn "$DMENU_FONT" -nb "$DMENUCOL_BG" -nf "$DMENUCOL_FG" -sb "$DMENUCOL_SELECTBG" -sf "$DMENUCOL_SELECTFG"
+}
+
+selectAction() { 
+# Execute the desired action
+case $1 in
+    "⏻ Turn Off" | "⏻ Shutdown" | "Shutdown" | "shutdown" | "poweroff" | "Poweroff" | "Turn off" | "Turn Off" | "turn off")
+	systemctl poweroff;;
+" Restart" | " Reboot" | "Restart" | "restart" | "Reboot" | "reboot")
+	systemctl reboot;;
+"󰌆 Log Off" | "󰌆 LogOff" | "󰌆 Logoff" | "Logoff" | "logoff" | "Log Off" | "log off")
+	pkill -15 dwm
+	pkill -15 X;;
+*) prompt="";;
+esac
+}
+
+control_mainModule() {
+	case $1 in
+    volume_up)
+    # Unmutes and increases volume, then displays the notification
+    pactl set-sink-mute @DEFAULT_SINK@ 0
+    volume=$(get_volume)
+    if [ $(( "$volume" + "$volume_step" )) -gt $max_volume ]; then
+        pactl set-sink-volume @DEFAULT_SINK@ "$max_volume"%
+    else
+        pactl set-sink-volume @DEFAULT_SINK@ +"$volume_step"%
+    fi
+    show_volume_notif
+    ;;
+
+    volume_down)
+    # Raises volume and displays the notification
+    pactl set-sink-volume @DEFAULT_SINK@ -"$volume_step"%
+    
+    show_volume_notif
+    ;;
+
+    volume_mute)
+    # Toggles mute and displays the notification
+    pactl set-sink-mute @DEFAULT_SINK@ toggle
+    show_volume_notif
+    ;;
+
+    brightness_up)
+    # Increases brightness and displays the notification
+    xbacklight -inc $brightness_step -time 0 
+    show_brightness_notif
+    ;;
+
+    brightness_down)
+    # Decreases brightness and displays the notification
+    xbacklight -dec $brightness_step -time 0
+    show_brightness_notif
+    ;;
+esac
+}
+
+case $1 in
+	"shutdown-menu")
+		SaveIFS=$IFS
+		IFS=:
+		option="󰌆 Log Off:⏻ Turn Off: Restart" 
+		# Show dmenu with the controls
+		DMENU_TITLE="Press ESC to cancel"
+		prompt="$(printf '%s\n' "$option" | tr ':' '\n' | dmenu_spawn)"
+		IFS=$SaveIFS
+		wait
+		selectAction "$prompt";;
+"volume_brightness")
+		control_mainModule $2;;
+"screenshot")
+	maim | xclip -selection clipboard -t image/png
+	notify-send "Screenshot Captured" -u "low" -t 3;;
+*)
+	echo "Available tools:"
+	echo "shutdown-menu - volume_brightness";;
+esac
+		
