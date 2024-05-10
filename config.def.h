@@ -68,7 +68,7 @@ static const char *brdowncmd[] = { "fluffeon-dwm-tools", "volume_brightness", "b
 static const char *mutecmd[] = { "fluffeon-dwm-tools", "volume_brightness", "volume_mute", NULL };
 static const char *volupcmd[] = { "fluffeon-dwm-tools", "volume_brightness", "volume_up", NULL };
 static const char *voldowncmd[] = { "fluffeon-dwm-tools", "volume_brightness", "volume_down", NULL };
-static const char *powermenu[] = { "fluffeon-dwm-tools", "shutdown-dmenu", NULL };
+static const char *powermenu[] = { "fluffeon-dwm-tools", "shutdown-menu", NULL };
 static const char *printscreen[] = { "fluffeon-dwm-tools", "screenshot", NULL };
 
 
