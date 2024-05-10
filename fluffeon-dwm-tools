@@ -71,9 +71,9 @@ selectAction() {
 # Execute the desired action
 case $1 in
     "⏻ Turn Off" | "⏻ Shutdown" | "Shutdown" | "shutdown" | "poweroff" | "Poweroff" | "Turn off" | "Turn Off" | "turn off")
-	systemctl poweroff;;
+	poweroff;;
 " Restart" | " Reboot" | "Restart" | "restart" | "Reboot" | "reboot")
-	systemctl reboot;;
+	reboot;;
 "󰌆 Log Off" | "󰌆 LogOff" | "󰌆 Logoff" | "Logoff" | "logoff" | "Log Off" | "log off")
 	pkill -15 dwm
 	pkill -15 X;;
