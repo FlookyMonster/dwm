@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/local/bin/zsh
 
 # DMENU COLORS
 #
@@ -8,17 +8,17 @@
 # DMENUCOL_FG = col_gray3
 # DMENUCOL_SELECTBG = col_gray4
 # DMENUCOL_SELECTFG = col_cyan
-DMENU_FONT="Sans Serif":size=8
-DMENUCOL_BG=#2A2A2A
-DMENUCOL_FG=#ECECEC	
-DMENUCOL_SELECTBG=#000000
-DMENUCOL_SELECTFG=#70C0BA
+DMENU_FONT="Terminus":size=10
+DMENUCOL_BG=#5B544C
+DMENUCOL_FG=#E4E3E0	
+DMENUCOL_SELECTBG=#DA2A47
+DMENUCOL_SELECTFG=$DMENUCOL_FG
 
 dmenuthing() {
 dmenu -i -p "$DMENU_TITLE" -fn "$DMENU_FONT" -nb "$DMENUCOL_BG" -nf "$DMENUCOL_FG" -sb "$DMENUCOL_SELECTBG" -sf "$DMENUCOL_SELECTFG"
 }
 
-function selectAction() { 
+selectAction() { 
 # Execute the desired action
 case $1 in
     "⏻ Turn Off" | "⏻ Shutdown" | "Shutdown" | "shutdown" | "poweroff" | "Poweroff" | "Turn off" | "Turn Off" | "turn off")
@@ -28,7 +28,7 @@ case $1 in
 "󰌆 Log Off" | "󰌆 LogOff" | "󰌆 Logoff" | "Logoff" | "logoff" | "Log Off" | "log off")
 	pkill -15 dwm
 	pkill -15 X;;
-*) prompt=$(echo -n);;
+*) prompt=exec echo -n;;
 esac
 }
 
