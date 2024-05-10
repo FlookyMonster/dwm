@@ -15,7 +15,7 @@ the /usr/local namespace by default).
 
 Afterwards enter the following command to build and install dwm:
 
-    ./run-this-to-install.sh
+    make install
 
 
 Running dwm
@@ -45,3 +45,6 @@ Configuration
 -------------
 The configuration of dwm is done by creating a custom config.h
 and (re)compiling the source code.
+
+To autostart programs, create the ´~/.config/dwm´ directory and create 
+a shell script which launches all of the programs you want to run at start.

@@ -46,7 +46,6 @@ install: all
 	cp volume_brightness /usr/bin/volume_brightness
 	cp screenshotthing /usr/bin/screenshotthing
 	cp dwm.desktop /usr/share/xsessions
-	cp dwm-fallback.desktop /usr/share/xsessions
 	chmod 755 ${DESTDIR}${PREFIX}/bin/dwm
 	mkdir -p ${DESTDIR}${MANPREFIX}/man1
 	sed "s/VERSION/${VERSION}/g" < dwm.1 > ${DESTDIR}${MANPREFIX}/man1/dwm.1
