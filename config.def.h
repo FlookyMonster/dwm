@@ -61,15 +61,15 @@ static const Layout layouts[] = {
 static const char *periwinklemenu[] = { "periwinkle", "menu", NULL };
 
 /* Backlight */
-static const char *brupcmd[] = { "volume_brightness", "brightness_up", NULL };
-static const char *brdowncmd[] = { "volume_brightness", "brightness_down", NULL };
+static const char *brupcmd[] = { "fluffeon-dwm-tools", "volume_brightness", "brightness_up", NULL };
+static const char *brdowncmd[] = { "fluffeon-dwm-tools", "volume_brightness", "brightness_down", NULL };
 
 /* Volume */
-static const char *mutecmd[] = { "volume_brightness", "volume_mute", NULL };
-static const char *volupcmd[] = { "volume_brightness", "volume_up", NULL };
-static const char *voldowncmd[] = { "volume_brightness", "volume_down", NULL };
-static const char *printscreen[] = { "screenshotthing", NULL };
-static const char *powermenu[] = { "shutdown-dmenu", NULL };
+static const char *mutecmd[] = { "fluffeon-dwm-tools". "volume_brightness", "volume_mute", NULL };
+static const char *volupcmd[] = { "fluffeon-dwm-tools", "volume_brightness", "volume_up", NULL };
+static const char *voldowncmd[] = { "fluffeon-dwm-tools", "volume_brightness", "volume_down", NULL };
+static const char *powermenu[] = { "fluffeon-dwm-tools", "shutdown-dmenu", NULL };
+static const char *printscreen[] = { "fluffeon-dwm-tools", "screenshot", NULL };
 
 
 /* key definitions */
