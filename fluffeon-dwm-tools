@@ -1,5 +1,13 @@
 #!/bin/sh
 
+pw_IconDir="/usr/local/share/icons/Adwaita"
+pw_ExtraDir="/scalable/status"
+
+# Icon Mode (svg, nerd or none)
+IconMode="svg"
+
+pw_ShowPercentage="yes"
+
 # DMENU COLORS
 #
 # In dwm, usually the following equivalents for dmenu coloring are:
@@ -9,13 +17,14 @@
 # DMENUCOL_SELECTBG = col_gray4
 # DMENUCOL_SELECTFG = col_cyan
 DMENU_FONT="Terminus":size=10
-DMENUCOL_BG=#5B544C
-DMENUCOL_FG=#E4E3E0	
-DMENUCOL_SELECTBG=#DA2A47
+DMENUCOL_BG="#5B544C"
+DMENUCOL_FG="#E4E3E0"
+DMENUCOL_SELECTBG="#DA2A47"
 DMENUCOL_SELECTFG=$DMENUCOL_FG
 
 # VOLUME AND BRIGHTNESS CONTROLS
 bar_color="#b3cfa7"
+bar_color_muted="#ff6b6b"
 volume_step=2
 brightness_step=5
 max_volume=100
@@ -40,12 +49,31 @@ get_brightness() {
 get_volume_icon() {
 	volume=$(get_volume)
 	mute=$(get_mute)
-	if [ "$volume" -eq 0 ] || [ "$mute" == "yes" ] ; then
-		volume_icon=""
+	if [ "$mute" == "yes" ]; then
+		bar_color="$bar_color_muted"
+	fi
+
+	if [ "$volume" -eq 0 ] || [ "$mute" == "yes" ]; then
+		case $IconMode in
+			"nerd")
+			volume_icon="";;
+			"svg")
+			volume_icon="$pw_IconDir$pw_ExtraDir/audio-volume-muted-symbolic.svg";;
+		esac
 	elif [ "$volume" -lt 50 ]; then
-		volume_icon=""
+		case $IconMode in
+			"nerd")
+			volume_icon="";;
+			"svg")
+			volume_icon="$pw_IconDir$pw_ExtraDir/audio-volume-low-symbolic.svg";;
+		esac
 	else
-		volume_icon=""
+		case $IconMode in
+			"nerd")
+			volume_icon="";;
+			"svg")
+			volume_icon="$pw_IconDir$pw_ExtraDir/audio-volume-high-symbolic.svg";;
+		esac
 	fi
 }
 
@@ -53,7 +81,22 @@ get_volume_icon() {
 show_volume_notif() {
 	volume=$(get_mute)
 	get_volume_icon
-	dunstify -i audio-volume-muted-blocking -t 1000 -r 2593 -u normal "$volume_icon $volume%" -h int:value:$volume -h string:hlcolor:"$bar_color"
+
+
+	if [ $pw_ShowPercentage == "yes" ]; then
+		pw_Message=$volume%
+	else
+		pw_Message=""
+	fi
+
+	case $IconMode in
+		"nerd")
+		dunstify -i audio-volume-muted-blocking -t 1000 -r 2593 -u normal "$volume_icon $pw_Message" -h int:value:$volume -h string:hlcolor:"$bar_color";;
+		"svg")
+		dunstify -i audio-volume-muted-blocking -t 1000 -r 2593 -u normal "$pw_Message" -h int:value:$volume -h string:hlcolor:"$bar_color" -i "$volume_icon";;
+		"none")
+		dunstify -i audio-volume-muted-blocking -t 1000 -r 2593 -u normal "$pw_Message" -h int:value:$volume -h string:hlcolor:"$bar_color";;
+	esac
 }
 
 # Displays a brightness notification using dunstify
