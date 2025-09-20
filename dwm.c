@@ -2682,7 +2682,10 @@ main(int argc, char *argv[])
 		die("pledge");
 #endif /* __OpenBSD__ */
 	scan();
-	runautostart();
+	if (!getenv("DWM_ALREADY_STARTED")) {
+    	runautostart();
+    	setenv("DWM_ALREADY_STARTED", "1", 1);
+	}
 	run();
 	cleanup();
 	XCloseDisplay(dpy);
