@@ -58,6 +58,8 @@ Contributors and Special Thanks
 - https://dwm.suckless.org/patches/extrabar/
 - nggit - https://github.com/nggit (autostart patch)
 - https://dwm.suckless.org/patches/quitprompt/
+- https://dwm.suckless.org/patches/pertag/
+- https://dwm.suckless.org/patches/awesomebar/
 
 - If you're the one who made the volume/brightness control thing, please get in touch ASAṔ. I forgot who made it.
 These are the list of people
